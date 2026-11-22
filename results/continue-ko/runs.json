@@ -1,0 +1,474 @@
+[
+ {
+  "arm": "off",
+  "i": 1,
+  "rc": 0,
+  "seconds": 24,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 5,
+  "input_tokens": 120268,
+  "first_call": 22278,
+  "num_turns": 5,
+  "cost_usd": 0.08915210000000001,
+  "subtype": "success",
+  "tool_calls": 4,
+  "explore_calls": 4,
+  "tools_before_first_edit": 3,
+  "handoff_reads": 1,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 4
+  }
+ },
+ {
+  "arm": "on",
+  "i": 1,
+  "rc": 0,
+  "seconds": 17,
+  "tests_ok": true,
+  "tests_ran": 18,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 3,
+  "input_tokens": 77743,
+  "first_call": 24559,
+  "num_turns": 3,
+  "cost_usd": 0.08435399999999998,
+  "subtype": "success",
+  "tool_calls": 2,
+  "explore_calls": 2,
+  "tools_before_first_edit": 1,
+  "handoff_reads": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 2
+  }
+ },
+ {
+  "arm": "on",
+  "i": 2,
+  "rc": 0,
+  "seconds": 22,
+  "tests_ok": true,
+  "tests_ran": 18,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 6,
+  "input_tokens": 158691,
+  "first_call": 24568,
+  "num_turns": 6,
+  "cost_usd": 0.09647559999999998,
+  "subtype": "success",
+  "tool_calls": 5,
+  "explore_calls": 4,
+  "tools_before_first_edit": 1,
+  "handoff_reads": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 4,
+   "Edit": 1
+  }
+ },
+ {
+  "arm": "off",
+  "i": 2,
+  "rc": 0,
+  "seconds": 21,
+  "tests_ok": true,
+  "tests_ran": 18,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 5,
+  "input_tokens": 120422,
+  "first_call": 22288,
+  "num_turns": 5,
+  "cost_usd": 0.0908281,
+  "subtype": "success",
+  "tool_calls": 4,
+  "explore_calls": 4,
+  "tools_before_first_edit": 3,
+  "handoff_reads": 1,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 4
+  }
+ },
+ {
+  "arm": "off",
+  "i": 3,
+  "rc": 0,
+  "seconds": 21,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 5,
+  "input_tokens": 122911,
+  "first_call": 22279,
+  "num_turns": 5,
+  "cost_usd": 0.091452,
+  "subtype": "success",
+  "tool_calls": 4,
+  "explore_calls": 4,
+  "tools_before_first_edit": 3,
+  "handoff_reads": 1,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 4
+  }
+ },
+ {
+  "arm": "on",
+  "i": 3,
+  "rc": 0,
+  "seconds": 20,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 4,
+  "input_tokens": 104303,
+  "first_call": 24563,
+  "num_turns": 4,
+  "cost_usd": 0.0891299,
+  "subtype": "success",
+  "tool_calls": 3,
+  "explore_calls": 3,
+  "tools_before_first_edit": 1,
+  "handoff_reads": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 3
+  }
+ },
+ {
+  "arm": "on",
+  "i": 4,
+  "rc": 0,
+  "seconds": 19,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 4,
+  "input_tokens": 104399,
+  "first_call": 24559,
+  "num_turns": 4,
+  "cost_usd": 0.08835819999999998,
+  "subtype": "success",
+  "tool_calls": 3,
+  "explore_calls": 3,
+  "tools_before_first_edit": 1,
+  "handoff_reads": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 3
+  }
+ },
+ {
+  "arm": "off",
+  "i": 4,
+  "rc": 0,
+  "seconds": 25,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "HANDOFF.md",
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 6,
+  "input_tokens": 149138,
+  "first_call": 22283,
+  "num_turns": 6,
+  "cost_usd": 0.09858090000000001,
+  "subtype": "success",
+  "tool_calls": 5,
+  "explore_calls": 5,
+  "tools_before_first_edit": 3,
+  "handoff_reads": 1,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 5
+  }
+ },
+ {
+  "arm": "off",
+  "i": 5,
+  "rc": 0,
+  "seconds": 26,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "HANDOFF.md",
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 6,
+  "input_tokens": 150579,
+  "first_call": 22280,
+  "num_turns": 6,
+  "cost_usd": 0.1017815,
+  "subtype": "success",
+  "tool_calls": 5,
+  "explore_calls": 5,
+  "tools_before_first_edit": 3,
+  "handoff_reads": 1,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 5
+  }
+ },
+ {
+  "arm": "on",
+  "i": 5,
+  "rc": 0,
+  "seconds": 20,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 4,
+  "input_tokens": 104301,
+  "first_call": 24567,
+  "num_turns": 4,
+  "cost_usd": 0.0882366,
+  "subtype": "success",
+  "tool_calls": 3,
+  "explore_calls": 3,
+  "tools_before_first_edit": 1,
+  "handoff_reads": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 3
+  }
+ },
+ {
+  "arm": "on",
+  "i": 6,
+  "rc": 0,
+  "seconds": 22,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 5,
+  "input_tokens": 131569,
+  "first_call": 24565,
+  "num_turns": 5,
+  "cost_usd": 0.0938326,
+  "subtype": "success",
+  "tool_calls": 4,
+  "explore_calls": 3,
+  "tools_before_first_edit": 1,
+  "handoff_reads": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 3,
+   "Edit": 1
+  }
+ },
+ {
+  "arm": "off",
+  "i": 6,
+  "rc": 0,
+  "seconds": 22,
+  "tests_ok": true,
+  "tests_ran": 18,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 5,
+  "input_tokens": 122882,
+  "first_call": 22276,
+  "num_turns": 5,
+  "cost_usd": 0.09260150000000002,
+  "subtype": "success",
+  "tool_calls": 4,
+  "explore_calls": 4,
+  "tools_before_first_edit": 3,
+  "handoff_reads": 1,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 4
+  }
+ }
+]

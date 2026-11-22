@@ -1,0 +1,116 @@
+diff --git a/README.md b/README.md
+index f3013b6..9f78e25 100644
+--- a/README.md
++++ b/README.md
+@@ -15,7 +15,7 @@ python3 -m unittest            # runs the test suite (standard library only)
+ | Path | What it holds |
+ |---|---|
+ | `tinyrunner/lives.py` | Starting lives, losing and gaining a life |
+-| `tinyrunner/score.py` | Coin points, distance points, combo (planned) |
++| `tinyrunner/score.py` | Coin points, distance points, combo multiplier |
+ | `tinyrunner/levels.py` | Level list and the speed of each level |
+ | `tinyrunner/obstacles.py` | Which obstacles can spawn on each level |
+ | `tinyrunner/game.py` | The tick loop that wires the rules together |
+diff --git a/docs/changelog.md b/docs/changelog.md
+index c301968..f22ef3d 100644
+--- a/docs/changelog.md
++++ b/docs/changelog.md
+@@ -2,6 +2,10 @@
+ 
+ Newest first.
+ 
++## 0.4.0 (2026-11-23)
++- Score: combo multiplier for coins collected within 3 ticks of each other
++  (×1, ×2, ×3, then ×4 cap; reset on life lost). Distance points are not multiplied.
++
+ ## 0.3.0 (2026-11-16)
+ - Obstacle spawn tables per level (`tinyrunner/obstacles.py`).
+ 
+diff --git a/tests/test_score.py b/tests/test_score.py
+index 5603857..6d6ebe5 100644
+--- a/tests/test_score.py
++++ b/tests/test_score.py
+@@ -15,6 +15,37 @@ class ScoreTest(unittest.TestCase):
+         self.assertEqual(s.total, COIN_POINTS)
+         self.assertEqual(s.coins, 1)
+ 
++    def _coin_points(self, ticks, reset_after=()):
++        s = Score()
++        for t in ticks:
++            s.add_coin(tick=t)
++            if t in reset_after:
++                s.reset_combo()
++        return s.total
++
++    def test_combo_design_example(self):
++        # docs/design.md "Combo": ticks 1, 2, 4, 9 -> 10 + 20 + 30 + 10
++        self.assertEqual(self._coin_points([1, 2, 4, 9]), 70)
++
++    def test_combo_window_is_inclusive(self):
++        # gap of exactly 3 continues the combo, gap of 4 does not
++        self.assertEqual(self._coin_points([1, 4]), 10 + 20)
++        self.assertEqual(self._coin_points([1, 5]), 10 + 10)
++
++    def test_combo_caps_at_x4(self):
++        self.assertEqual(self._coin_points([1, 2, 3, 4, 5]), 10 + 20 + 30 + 40 + 40)
++
++    def test_reset_combo(self):
++        self.assertEqual(self._coin_points([1, 2, 3], reset_after=(2,)), 10 + 20 + 10)
++
++    def test_distance_not_multiplied(self):
++        s = Score()
++        s.add_coin(tick=1)
++        s.add_coin(tick=2)
++        s.add_distance(5)
++        self.assertEqual(s.total, 10 + 20 + 5)
++        self.assertEqual(s.coins, 2)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tinyrunner/score.py b/tinyrunner/score.py
+index 112c13d..171c3c8 100644
+--- a/tinyrunner/score.py
++++ b/tinyrunner/score.py
+@@ -2,12 +2,16 @@
+ 
+ COIN_POINTS = 10
+ DISTANCE_POINTS = 1  # per unit of distance
++COMBO_WINDOW = 3  # ticks; a coin within this many ticks continues the combo
++COMBO_CAP = 4  # highest multiplier
+ 
+ 
+ class Score:
+     def __init__(self):
+         self.total = 0
+         self.coins = 0
++        self.combo = 0  # position in the current combo; 0 = no combo
++        self.last_coin_tick = None
+ 
+     def add_distance(self, distance):
+         self.total += distance * DISTANCE_POINTS
+@@ -15,10 +19,21 @@ class Score:
+     def add_coin(self, tick):
+         """Called by game.py with the tick the coin was collected on.
+ 
+-        Combo is not implemented yet: every coin is worth COIN_POINTS.
++        Applies the combo multiplier (docs/design.md "Combo").
+         """
++        if (
++            self.combo
++            and self.last_coin_tick is not None
++            and tick - self.last_coin_tick <= COMBO_WINDOW
++        ):
++            self.combo += 1
++        else:
++            self.combo = 1
++        self.last_coin_tick = tick
+         self.coins += 1
+-        self.total += COIN_POINTS
++        self.total += COIN_POINTS * min(self.combo, COMBO_CAP)
+ 
+     def reset_combo(self):
+-        """Called by game.py when a life is lost. Does nothing until combo lands."""
++        """Called by game.py when a life is lost. The next coin is x1."""
++        self.combo = 0
++        self.last_coin_tick = None

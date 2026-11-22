@@ -1,0 +1,245 @@
+[
+ {
+  "arm": "off",
+  "i": 1,
+  "rc": 0,
+  "seconds": 48,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 6,
+  "input_tokens": 154439,
+  "first_call": 22429,
+  "num_turns": 6,
+  "cost_usd": 0.2112564,
+  "subtype": "success",
+  "tool_calls": 5,
+  "explore_calls": 5,
+  "tools_before_first_edit": 2,
+  "handoff_reads": 1,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 5
+  }
+ },
+ {
+  "arm": "on",
+  "i": 1,
+  "rc": 0,
+  "seconds": 47,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 6,
+  "input_tokens": 165446,
+  "first_call": 24711,
+  "num_turns": 12,
+  "cost_usd": 0.2499472,
+  "subtype": "success",
+  "tool_calls": 11,
+  "explore_calls": 8,
+  "tools_before_first_edit": 5,
+  "handoff_reads": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 4,
+   "Read": 4,
+   "Edit": 3
+  }
+ },
+ {
+  "arm": "on",
+  "i": 2,
+  "rc": 0,
+  "seconds": 60,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 7,
+  "input_tokens": 194994,
+  "first_call": 24715,
+  "num_turns": 12,
+  "cost_usd": 0.2550354,
+  "subtype": "success",
+  "tool_calls": 11,
+  "explore_calls": 8,
+  "tools_before_first_edit": 5,
+  "handoff_reads": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 4,
+   "Read": 4,
+   "Edit": 3
+  }
+ },
+ {
+  "arm": "off",
+  "i": 2,
+  "rc": 0,
+  "seconds": 41,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 5,
+  "input_tokens": 126568,
+  "first_call": 22428,
+  "num_turns": 5,
+  "cost_usd": 0.19590780000000002,
+  "subtype": "success",
+  "tool_calls": 4,
+  "explore_calls": 4,
+  "tools_before_first_edit": 2,
+  "handoff_reads": 0,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 4
+  }
+ },
+ {
+  "arm": "off",
+  "i": 3,
+  "rc": 0,
+  "seconds": 46,
+  "tests_ok": true,
+  "tests_ran": 18,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "README.md",
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 7,
+  "input_tokens": 186250,
+  "first_call": 22431,
+  "num_turns": 7,
+  "cost_usd": 0.2125498,
+  "subtype": "success",
+  "tool_calls": 6,
+  "explore_calls": 6,
+  "tools_before_first_edit": 3,
+  "handoff_reads": 1,
+  "handoff_seen": 1,
+  "baton_injected": false,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 6
+  }
+ },
+ {
+  "arm": "on",
+  "i": 3,
+  "rc": 0,
+  "seconds": 48,
+  "tests_ok": true,
+  "tests_ran": 19,
+  "grade_pass": true,
+  "grade": {
+   "design_example_70": true,
+   "cap_at_x4": true,
+   "window_inclusive_3": true,
+   "gap_4_restarts": true,
+   "reset_combo": true,
+   "distance_not_multiplied": true,
+   "game_hit_resets_combo": true
+  },
+  "changed": [
+   "docs/changelog.md",
+   "tests/test_score.py",
+   "tinyrunner/score.py"
+  ],
+  "model_calls": 7,
+  "input_tokens": 193764,
+  "first_call": 24712,
+  "num_turns": 11,
+  "cost_usd": 0.2236758,
+  "subtype": "success",
+  "tool_calls": 10,
+  "explore_calls": 8,
+  "tools_before_first_edit": 5,
+  "handoff_reads": 0,
+  "handoff_seen": 0,
+  "baton_injected": true,
+  "sub_calls": 0,
+  "sub_tokens": 0,
+  "tool_names": {
+   "Bash": 5,
+   "Read": 3,
+   "Edit": 2
+  }
+ }
+]

@@ -1,0 +1,103 @@
+diff --git a/docs/changelog.md b/docs/changelog.md
+index c301968..62bb56d 100644
+--- a/docs/changelog.md
++++ b/docs/changelog.md
+@@ -2,6 +2,9 @@
+ 
+ Newest first.
+ 
++## 0.4.0 (2026-11-23)
++- Combo multiplier for coins (`Score.add_coin`, `Score.reset_combo`).
++
+ ## 0.3.0 (2026-11-16)
+ - Obstacle spawn tables per level (`tinyrunner/obstacles.py`).
+ 
+diff --git a/tests/test_score.py b/tests/test_score.py
+index 5603857..6638a7f 100644
+--- a/tests/test_score.py
++++ b/tests/test_score.py
+@@ -15,6 +15,40 @@ class ScoreTest(unittest.TestCase):
+         self.assertEqual(s.total, COIN_POINTS)
+         self.assertEqual(s.coins, 1)
+ 
++    def test_design_example(self):
++        s = Score()
++        for t in (1, 2, 4, 9):
++            s.add_coin(tick=t)
++        self.assertEqual(s.total, 70)
++
++    def test_cap_at_x4(self):
++        s = Score()
++        for t in (1, 2, 3, 4, 5):
++            s.add_coin(tick=t)
++        self.assertEqual(s.total, 10 + 20 + 30 + 40 + 40)
++
++    def test_window_is_inclusive(self):
++        s = Score()
++        s.add_coin(tick=1)
++        s.add_coin(tick=4)  # gap 3 continues
++        self.assertEqual(s.total, 30)
++        s.add_coin(tick=8)  # gap 4 restarts
++        self.assertEqual(s.total, 40)
++
++    def test_reset_combo(self):
++        s = Score()
++        s.add_coin(tick=1)
++        s.reset_combo()
++        s.add_coin(tick=2)
++        self.assertEqual(s.total, 20)
++
++    def test_distance_not_multiplied(self):
++        s = Score()
++        s.add_coin(tick=1)
++        s.add_coin(tick=2)
++        s.add_distance(5)
++        self.assertEqual(s.total, 35)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tinyrunner/score.py b/tinyrunner/score.py
+index 112c13d..994525e 100644
+--- a/tinyrunner/score.py
++++ b/tinyrunner/score.py
+@@ -2,12 +2,16 @@
+ 
+ COIN_POINTS = 10
+ DISTANCE_POINTS = 1  # per unit of distance
++COMBO_WINDOW = 3  # ticks, inclusive
++COMBO_CAP = 4
+ 
+ 
+ class Score:
+     def __init__(self):
+         self.total = 0
+         self.coins = 0
++        self._combo = 0
++        self._last_coin_tick = None
+ 
+     def add_distance(self, distance):
+         self.total += distance * DISTANCE_POINTS
+@@ -15,10 +19,19 @@ class Score:
+     def add_coin(self, tick):
+         """Called by game.py with the tick the coin was collected on.
+ 
+-        Combo is not implemented yet: every coin is worth COIN_POINTS.
++        A coin within COMBO_WINDOW ticks of the previous one continues the
++        combo: multiplier x1, x2, x3, then capped at COMBO_CAP.
+         """
++        if (self._last_coin_tick is not None
++                and tick - self._last_coin_tick <= COMBO_WINDOW):
++            self._combo += 1
++        else:
++            self._combo = 1
++        self._last_coin_tick = tick
+         self.coins += 1
+-        self.total += COIN_POINTS
++        self.total += COIN_POINTS * min(self._combo, COMBO_CAP)
+ 
+     def reset_combo(self):
+-        """Called by game.py when a life is lost. Does nothing until combo lands."""
++        """Called by game.py when a life is lost."""
++        self._combo = 0
++        self._last_coin_tick = None

@@ -1,0 +1,146 @@
+diff --git a/HANDOFF.md b/HANDOFF.md
+index b4d5996..84ba4f8 100644
+--- a/HANDOFF.md
++++ b/HANDOFF.md
+@@ -10,7 +10,7 @@
+ - [V] The rule is written down: `docs/design.md` "Combo" (window = 3 ticks, ×1 ×2 ×3 then ×4 cap, reset on life lost). Read 2026-11-14.
+ - [V] `game.py` already calls `score.add_coin(self.tick)` and `score.reset_combo()` on a hit. Checked with `grep -n score tinyrunner/game.py`.
+ - [V] Only coin points are multiplied, never distance points (design.md, last bullet of "Combo").
+-- [?] The "within 3 ticks" check is inclusive (`<= 3`). design.md says so; no test pins it yet.
++- [V] The "within 3 ticks" check is inclusive (`<= 3`); pinned by `test_gap_of_exactly_three_continues`.
+ 
+ ## 관련 파일·심볼 · Files and symbols
+ - `tinyrunner/score.py`: `Score.add_coin`, `Score.reset_combo` — the only file that should change for the rule.
+@@ -20,19 +20,17 @@
+ 
+ ## 이미 한 변경 · Already changed
+ - `game.py` tick loop and `cli.py` landed (commit "game: tick loop ...").
+-- `reset_combo()` exists as a no-op so `game.py` can call it already.
++- Combo implemented in `score.py` (2026-11-23), tests added, changelog 0.4.0. Not committed yet.
+ 
+ ## 실패한 접근법 (다시 시도 금지) · Failed approaches (do not retry)
+ - Tracking the combo inside `game.py`: rejected. Score rules live in `score.py` only (README "Rules of thumb").
+ 
+ ## 검증 증거 · Evidence
+-- `python3 -m unittest` → 11 tests OK (before the combo work).
++- `python3 -m unittest` → 19 tests OK (after combo work).
+ 
+ ## 남은 리스크와 다음 행동 · Risks and next step
+ - Risk: `add_coin(tick)` signature must stay the same, `game.py` depends on it.
+-- Next step: combo is not implemented (`add_coin` adds a flat 10, see its docstring) → implement it in
+-  `score.py`, write the tests in `tests/test_score.py` first, then run `python3 -m unittest`.
+-- After that: update `docs/changelog.md` with a new entry.
++- Next step: combo is done; commit it. No further task defined.
+ 
+ ## 승격 후보 (DECISIONS.md로 올릴 것) · Promotion candidates
+ - None.
+diff --git a/docs/changelog.md b/docs/changelog.md
+index c301968..d4f2de4 100644
+--- a/docs/changelog.md
++++ b/docs/changelog.md
+@@ -2,6 +2,9 @@
+ 
+ Newest first.
+ 
++## 0.4.0 (2026-11-23)
++- Combo multiplier for coins (x1, x2, x3, cap x4; window 3 ticks; reset on life lost).
++
+ ## 0.3.0 (2026-11-16)
+ - Obstacle spawn tables per level (`tinyrunner/obstacles.py`).
+ 
+diff --git a/tests/test_score.py b/tests/test_score.py
+index 5603857..d838986 100644
+--- a/tests/test_score.py
++++ b/tests/test_score.py
+@@ -15,6 +15,46 @@ class ScoreTest(unittest.TestCase):
+         self.assertEqual(s.total, COIN_POINTS)
+         self.assertEqual(s.coins, 1)
+ 
++    def test_combo_example_from_design(self):
++        s = Score()
++        for t in (1, 2, 4, 9):
++            s.add_coin(t)
++        self.assertEqual(s.total, 70)
++        self.assertEqual(s.coins, 4)
++
++    def test_gap_of_exactly_three_continues(self):
++        s = Score()
++        s.add_coin(1)
++        s.add_coin(4)
++        self.assertEqual(s.total, 10 + 20)
++
++    def test_gap_of_four_resets(self):
++        s = Score()
++        s.add_coin(1)
++        s.add_coin(5)
++        self.assertEqual(s.total, 20)
++
++    def test_multiplier_caps_at_four(self):
++        s = Score()
++        for t in range(1, 7):
++            s.add_coin(t)
++        self.assertEqual(s.total, 10 + 20 + 30 + 40 + 40 + 40)
++
++    def test_reset_combo(self):
++        s = Score()
++        s.add_coin(1)
++        s.add_coin(2)
++        s.reset_combo()
++        s.add_coin(3)
++        self.assertEqual(s.total, 10 + 20 + 10)
++
++    def test_distance_not_multiplied(self):
++        s = Score()
++        s.add_coin(1)
++        s.add_coin(2)
++        s.add_distance(5)
++        self.assertEqual(s.total, 10 + 20 + 5)
++
+ 
+ if __name__ == "__main__":
+     unittest.main()
+diff --git a/tinyrunner/score.py b/tinyrunner/score.py
+index 112c13d..db72a74 100644
+--- a/tinyrunner/score.py
++++ b/tinyrunner/score.py
+@@ -2,12 +2,16 @@
+ 
+ COIN_POINTS = 10
+ DISTANCE_POINTS = 1  # per unit of distance
++COMBO_WINDOW = 3  # ticks; inclusive
++COMBO_CAP = 4
+ 
+ 
+ class Score:
+     def __init__(self):
+         self.total = 0
+         self.coins = 0
++        self._combo = 0
++        self._last_coin_tick = None
+ 
+     def add_distance(self, distance):
+         self.total += distance * DISTANCE_POINTS
+@@ -15,10 +19,20 @@ class Score:
+     def add_coin(self, tick):
+         """Called by game.py with the tick the coin was collected on.
+ 
+-        Combo is not implemented yet: every coin is worth COIN_POINTS.
++        Coins within COMBO_WINDOW ticks of the previous one build a combo:
++        multiplier x1, x2, x3, then capped at COMBO_CAP. Only coin points
++        are multiplied.
+         """
++        last = self._last_coin_tick
++        if last is not None and tick - last <= COMBO_WINDOW:
++            self._combo += 1
++        else:
++            self._combo = 1
++        self._last_coin_tick = tick
+         self.coins += 1
+-        self.total += COIN_POINTS
++        self.total += COIN_POINTS * min(self._combo, COMBO_CAP)
+ 
+     def reset_combo(self):
+-        """Called by game.py when a life is lost. Does nothing until combo lands."""
++        """Called by game.py when a life is lost: the next coin is x1."""
++        self._combo = 0
++        self._last_coin_tick = None
